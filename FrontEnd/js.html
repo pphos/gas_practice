@@ -1,0 +1,90 @@
+<script>
+  new Vue({
+    el: '#app',
+    vuetify: new Vuetify(),
+    data: () => ({
+      valid: true,
+      senderEmail: '',
+      recevierEmail:'',
+      select: null,
+      comments: '',
+      items: [
+        'Cafe Point',
+        'Stake Point',
+        'Sushi Point',
+        'French Point'
+      ],
+      lazy: false,
+      members: []
+    }),
+
+    created() {
+      const url = "Input API";
+      fetch(url)
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          console.log(data);
+          this.members = data;
+        });
+    /*
+      const data = {
+        method: 'GE',
+        endpoint: '/points',
+        params: {}
+      };
+      const param = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: JSON.stringify(data)
+      };
+      fetch(url, param)
+        .then(res => {
+          console.log(res);
+          console.log(res.json());
+          this.members = res.data;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      */
+    },
+
+    methods: {
+      reset () {
+        this.$refs.form.reset()
+      },
+      submit () {
+        const url = "Input API"
+
+        const data = {
+          method: 'POST',
+          endpoint: '/points',
+          params: {
+            timestamp: new Date().toLocaleString(),
+            sender: this.senderEmail,
+            receiver: this.recevierEmail,
+            type: this.select,
+            comment: this.comments
+          }
+        };
+        const param = {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        };
+        fetch(url, param)
+          .then(res => {
+            return res.json();
+        });
+      }
+    }
+  });
+</script>
