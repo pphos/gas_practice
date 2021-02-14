@@ -1,0 +1,33 @@
+<script>
+  const BoardHeader = {
+    template: '\
+      <v-app-bar color="primary" dark app>\
+        <v-toolbar-title class="headline text-uppercase">\
+          <span class="font-weight-light">MATERIAL DESIGN</span>\
+        </v-toolbar-title>\
+        <v-spacer></v-spacer>\
+        <v-toolbar-items>\
+          <v-btn to="/" text color="white">\
+            投稿する\
+          </v-btn>\
+          <v-btn to="/list" text color="white">\
+            投稿一覧\
+          </v-btn>\
+        </v-toolbar-items>\
+      </v-app-bar>\
+    '
+  };
+  const App = {
+    template: '\
+      <v-app>\
+        <BoardHeader />\
+        <v-main>\
+          <router-view/></router-view>\
+        </v-main>\
+      </v-app>\
+    ',
+    components: {
+      'BoardHeader': BoardHeader
+    }
+  };
+</script>

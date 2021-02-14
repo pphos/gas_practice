@@ -1,0 +1,41 @@
+<script>
+  // ブラウザのURLとvue-routerのURLを同期させるための処理
+  const syncRouterWithGas = router => {
+    if (!window.google) {
+      return;
+    }
+
+    window.google.script.url.getLocation(location => {
+      const path = location.hash;
+      const query = location.parameter;
+      router.replace({ path, query }).catch(() => {});
+    });
+
+    router.afterEach(route => {
+      window.google.script.history.replace(null, route.query, route.path);
+    });
+  }
+
+  // VueRouterの設定
+  Vue.use(VueRouter);
+  const router = new VueRouter({
+    routes: [
+      {
+        path: '/',
+        component: BoardForm
+      },
+      {
+        path: '/list',
+        component: BoardList
+      }
+    ]
+  });
+  syncRouterWithGas(router);
+
+  // Vueインスタンスの作成
+  new Vue({
+    vuetify: new Vuetify(),
+    router: router,
+    render: h => h(App)
+  }).$mount('#app');
+</script>

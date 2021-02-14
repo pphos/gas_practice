@@ -1,0 +1,51 @@
+<script>
+  const BoardForm = {
+    template: '\
+      <v-container>\
+        <h1 class="grey--text text--darken-3">投稿画面</h1>\
+        <v-form ref="form">\
+          <v-text-field\
+            v-model="name"\
+            label="Name"\
+            required\
+          ></v-text-field>\
+          \
+          <v-textarea\
+            v-model="comments"\
+            label="Comments"\
+            rows="4"\
+            row-height="30"\
+          ></v-textarea>\
+          \
+          <v-btn\
+            color="primary"\
+            class="mr-4"\
+            @click="submit"\
+          >\
+            Submit\
+          </v-btn>\
+          <v-btn\
+            color="error"\
+            class="mr-4"\
+            @click="reset"\
+          >\
+            Reset Form\
+          </v-btn>\
+        </v-form>\
+      </v-container>\
+    ',
+    data: () => ({
+      name: '',
+      comments: '',
+    }),
+    methods: {
+      reset() {
+        this.$refs.form.reset();
+      },
+      submit() {
+        /* 送信コードの記述 */
+        console.log("submit");
+      }
+    }
+  };
+</script>
